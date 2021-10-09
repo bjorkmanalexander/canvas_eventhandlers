@@ -26,7 +26,9 @@ class CanvasDisplay {
 
     draw() {
         this.context.clearRect(0, 0, this.config.width, this.config.height);
-        this.elements.forEach(element => element.update(this.context));
+        for (let i = 0; i < this.elements.length; ++i) {
+            this.elements[i].update(this.context);
+        }
     }
 
     mousedown(evt) {

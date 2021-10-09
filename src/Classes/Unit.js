@@ -1,8 +1,8 @@
 import Entity from "./Entity";
 
 class Unit extends Entity {
-    constructor(pos, r, { height, width }, { color }) {
-        super(pos, r);
+    constructor(position, rotation, { height, width }, { color }) {
+        super(position, rotation);
         this.options = {
             color
         }
@@ -51,7 +51,7 @@ class Unit extends Entity {
         const rotation = this.getRotation();
         context.save();
         context.translate(x + width / 2, y + height / 2);
-        context.rotate(rotation*Math.PI/180);
+        context.rotate(rotation * Math.PI / 180);
         context.fillStyle = color;
         context.fillRect(width / 2 * (-1), height / 2 * (-1), width, height);
         context.restore();

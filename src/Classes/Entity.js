@@ -1,6 +1,6 @@
 class Entity {
-    constructor({ x = 0, y = 0 }, r = 0) {
-        this.rotation = r;
+    constructor({ x = 0, y = 0 }, rotation = 0) {
+        this.rotation = rotation;
         this.position = {
             x, y
         }
@@ -18,8 +18,8 @@ class Entity {
         this.position = { ...this.position, x, y }
     }
 
-    setRotation(r) {
-        this.rotation = r;
+    setRotation(rotation) {
+        this.rotation = rotation;
     }
 }
 

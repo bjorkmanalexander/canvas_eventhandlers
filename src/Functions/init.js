@@ -9,7 +9,7 @@ function init() {
     document.body.appendChild(canvas);
 
     for (let i = 0; i < 2; ++i) {
-        const options= { color: 'red' };
+        const options = { color: 'red' };
         const pos = { x: canvas.width / 2, y: canvas.height / 2 };
         const rotation = 0;
         const size = { height: 50, width: 50 };

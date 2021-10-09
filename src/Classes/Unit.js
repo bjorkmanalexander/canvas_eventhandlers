@@ -5,12 +5,12 @@ class Unit extends Entity {
         super(position, rotation);
         this.options = {
             color
-        }
+        };
         this.selected = false;
         this.size = {
             height,
             width
-        }
+        };
     }
 
     getCenter() {
@@ -19,7 +19,7 @@ class Unit extends Entity {
         return { 
             cX: x + (width / 2), 
             cY: y + (height / 2)
-        }
+        };
     }
 
     getOptions() {
@@ -28,7 +28,7 @@ class Unit extends Entity {
 
     getRadius() {
         const { width } = this.getSize();
-        return width / 2
+        return width / 2;
     }
 
     getSize() {
@@ -37,7 +37,7 @@ class Unit extends Entity {
 
     setCenter({ nX, nY }) {
         const { height, width } = this.getSize();
-        this.setPosition({ x: nX - width, y: nY - height })
+        this.setPosition({ x: nX - width, y: nY - height });
     }
 
     setSelected() {

@@ -5,7 +5,7 @@ class CanvasDisplay {
         this.config = {
             height: window.innerHeight,
             width: window.innerWidth
-        }
+        };
 
         this.elements = [];
         this.events = {
@@ -13,7 +13,7 @@ class CanvasDisplay {
             mousemove: this.mousemove.bind(this),
             mouseup: this.mouseup.bind(this),
             mousewheel: this.mousewheel.bind(this)
-        }
+        };
 
         this.canvas.height = this.config.height;
         this.canvas.width = this.config.width;
@@ -45,7 +45,7 @@ class CanvasDisplay {
                 window.addEventListener('mouseup', this.events.mouseup);
                 window.addEventListener('wheel', this.events.mousewheel);
                 this.draw();
-                return
+                return;
             }
         }
     }
@@ -80,10 +80,9 @@ class CanvasDisplay {
             } else {
                 return 0
             }
-        }
+        };
         this.elements[this.id].setRotation(degrees(cR, 10));
         this.draw();
-        console.log(this.elements[this.id])
     }
 
     resize() {}
@@ -93,7 +92,7 @@ class CanvasDisplay {
     }
 
     setSelection(selection) {
-        this.selection = { ...this.selection, selection }
+        this.selection = { ...this.selection, selection };
     }
 }
 

@@ -3,7 +3,7 @@ class Entity {
         this.rotation = rotation;
         this.position = {
             x, y
-        }
+        };
     }
 
     getPosition() {
@@ -15,7 +15,7 @@ class Entity {
     }
 
     setPosition({ x, y }) {
-        this.position = { ...this.position, x, y }
+        this.position = { ...this.position, x, y };
     }
 
     setRotation(rotation) {

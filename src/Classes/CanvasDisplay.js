@@ -12,23 +12,26 @@ class CanvasDisplay {
             mousedown: this.mousedown.bind(this),
             mousemove: this.mousemove.bind(this),
             mouseup: this.mouseup.bind(this),
-            mousewheel: this.mousewheel.bind(this)
+            mousewheel: this.mousewheel.bind(this),
+            resize: this.resize.bind(this)
         };
 
         this.canvas.height = this.config.height;
         this.canvas.width = this.config.width;
         this.canvas.addEventListener('mousedown', this.events.mousedown);
-
+        window.addEventListener('resize', this.events.resize, false);
         this.id;
         this.offsetX;
         this.offsetY;
     }
 
     draw() {
-        this.context.clearRect(0, 0, this.config.width, this.config.height);
+        this.context.save();
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         for (let i = 0; i < this.elements.length; ++i) {
             this.elements[i].update(this.context);
         }
+        this.context.restore();
     }
 
     mousedown(evt) {
@@ -87,7 +90,12 @@ class CanvasDisplay {
         this.draw();
     }
 
-    resize() {}
+    resize() {
+        const { innerHeight, innerWidth } = window;
+        this.canvas.height = innerHeight;
+        this.canvas.width = innerWidth;
+        this.draw();
+    }
 
     setElements(elements) {
         this.elements = elements;
@@ -96,6 +104,7 @@ class CanvasDisplay {
     setSelection(selection) {
         this.selection = { ...this.selection, selection };
     }
+
 }
 
 export default CanvasDisplay;

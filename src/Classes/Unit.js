@@ -1,4 +1,4 @@
-import Entity from "./Entity";
+import Entity from './BaseUnit';
 
 class Unit extends Entity {
     constructor(position, rotation, { height, width }, { color }) {
@@ -11,6 +11,17 @@ class Unit extends Entity {
             height,
             width
         };
+    }
+
+    getBounds() {
+        const { x, y } = this.getPosition();
+        const { height, width } = this.getSize();
+        return ([
+            { x, y },
+            { x: x + width, y },
+            { x: x + width, y: y + height },
+            { x, y: y + height }
+        ])
     }
 
     getCenter() {
@@ -31,6 +42,10 @@ class Unit extends Entity {
         return width / 2;
     }
 
+    getSelected() {
+        return this.selected;
+    }
+
     getSize() {
         return this.size;
     }
@@ -44,7 +59,40 @@ class Unit extends Entity {
         this.selected = !this.selected;
     }
 
-    render(context) {
+    renderBoundingBox(context) {}
+
+    renderCenter(context) {
+        const { cX, cY } = this.getCenter();
+        const selected = this.getSelected();
+        context.beginPath();
+        context.lineWidth = 1;
+        if (selected) {
+            context.strokeStyle = 'white';
+            context.fillStyle = 'white';
+        } else {
+            context.strokeStyle = 'orange';
+            context.fillStyle = 'orange';
+        }
+        context.fillRect(cX - 5, cY - 5, 10, 10);
+        context.stroke();
+    }
+
+    renderDragZone(context) {
+        const { cX, cY } = this.getCenter();
+        const radius = this.getRadius();
+        const selected = this.getSelected();
+        context.beginPath();
+        context.lineWidth = 1;
+        context.strokeStyle = 'blue';
+        context.arc(cX, cY, radius, 0, 2 * Math.PI, false);
+        if (selected) {
+            context.fillStyle = 'blue';
+            context.fill();
+        }
+        context.stroke();
+    }
+
+    renderUnit(context) {
         const { color } = this.getOptions();
         const { x, y } = this.getPosition();
         const { height, width } = this.getSize();
@@ -58,7 +106,9 @@ class Unit extends Entity {
     }
 
     update(context) {
-        this.render(context);
+        this.renderUnit(context);
+        this.renderDragZone(context);
+        this.renderCenter(context);
     }
 }
 

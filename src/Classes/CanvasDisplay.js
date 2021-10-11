@@ -20,7 +20,7 @@ class CanvasDisplay {
         this.canvas.width = this.config.width;
         this.canvas.addEventListener('mousedown', this.events.mousedown);
         window.addEventListener('resize', this.events.resize, false);
-        this.id;
+        this.idx;
         this.offsetX;
         this.offsetY;
     }
@@ -42,7 +42,7 @@ class CanvasDisplay {
             let dx = mX - cX;
             let dy = mY - cY;
             if (Math.sqrt((dx * dx) + (dy * dy)) < this.elements[i].getRadius()) {
-                this.id = i;
+                this.idx = i;
                 this.offsetX = dx;
                 this.offsetY = dy;
                 this.elements[i].setSelected();
@@ -58,7 +58,7 @@ class CanvasDisplay {
     mousemove(evt) {
         const mX = evt.layerX - this.canvas.offsetLeft;
         const mY = evt.layerY - this.canvas.offsetTop;
-        this.elements[this.id].setCenter({ nX: mX - this.offsetX, nY: mY - this.offsetY });
+        this.elements[this.idx].setCenter({ nX: mX - this.offsetX, nY: mY - this.offsetY });
         this.draw();
     }
 
@@ -68,14 +68,14 @@ class CanvasDisplay {
         window.removeEventListener('mousemove', this.events.mousemove);
         window.removeEventListener('mouseup', this.events.mouseup);
         window.removeEventListener('wheel', this.events.mousewheel);
-        this.elements[this.id].setCenter({ nX: mX - this.offsetX, nY: mY - this.offsetY });
-        this.elements[this.id].setSelected();
+        this.elements[this.idx].setCenter({ nX: mX - this.offsetX, nY: mY - this.offsetY });
+        this.elements[this.idx].setSelected();
         this.draw();
         this.id = -1;
     }
 
     mousewheel(evt) {
-        const cR = this.elements[this.id].getRotation();
+        const cR = this.elements[this.idx].getRotation();
         const degrees = (cR, r) => {
             if (evt.wheelDelta < 0 && cR + r < 270) {
                 return cR + r
@@ -86,7 +86,7 @@ class CanvasDisplay {
                 return 0
             }
         };
-        this.elements[this.id].setRotation(degrees(cR, 10));
+        this.elements[this.idx].setRotation(degrees(cR, 10));
         this.draw();
     }
 

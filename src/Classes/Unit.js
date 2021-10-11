@@ -6,6 +6,7 @@ class Unit extends Entity {
         this.options = {
             color
         };
+        this.overlapping = false;
         this.selected = false;
         this.size = {
             height,

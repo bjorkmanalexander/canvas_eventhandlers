@@ -38,6 +38,10 @@ class Unit extends Entity {
         return this.options;
     }
 
+    getOverlapping() {
+        return this.overlapping;
+    }
+
     getRadius() {
         const { width } = this.getSize();
         return width / 2;
@@ -60,7 +64,25 @@ class Unit extends Entity {
         this.selected = !this.selected;
     }
 
-    renderBoundingBox(context) {}
+    renderBoundingBox(context) {
+        const { x, y } = this.getPosition();
+        const { height, width } = this.getSize();
+        const overlapping = this.getOverlapping();
+        context.beginPath();
+        context.lineWidth = 2;
+        context.strokeStyle = "grey";
+        context.moveTo(x - 5, y - 5);
+        context.bezierCurveTo(x - 5, y - 10, x + width + 10, y - 10, x + width + 5, y - 5);
+        context.moveTo(x - 5, y - 5);
+        context.lineTo(x - 5, y + height + 5);
+        context.bezierCurveTo(x - 5, y + height + 10, x + width + 10, y + height + 10, x + width + 5, y + height + 5);
+        context.lineTo(x + width + 5, y - 5);
+        if (overlapping) {
+            context.fillStyle = 'rgba(255, 0, 0, 0.2)';
+            context.fill();
+        }
+        context.stroke();
+    }
 
     renderCenter(context) {
         const { cX, cY } = this.getCenter();
@@ -107,6 +129,7 @@ class Unit extends Entity {
     }
 
     update(context) {
+        this.renderBoundingBox(context);
         this.renderUnit(context);
         this.renderDragZone(context);
         this.renderCenter(context);
